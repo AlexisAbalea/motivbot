@@ -1,0 +1,33 @@
+Objectif :
+Créer un site qui genere des lettres de motivation avec une IA
+
+L'utilisateur rempli un petit formulaire (2, 3 champs) puis submit.
+
+L'IA repond la premiere phrase de resultat pour donner un apercu.
+
+L'utilisateur doit ensuite s'inscrire et acheter un credit (1 credit = 1 euro) pour pouvoir generer une lettre entierement.
+
+Le resultat est sauvegardé en base de donnée lié à son profil.
+
+TODO :
+
+- Implementer l'interface front Angular
+    - formulaire de generation
+    - resultat (aperçu / ou complet avec utilisation credit)
+    - Inscription
+    - Connexion
+    - Paiement
+    - Espace perso (nombre credit et mes lettres)
+- Implementer le back NestJs
+    - Faire le service qui appel OpenAI
+    - Faire la route qui donne un apercu
+    - Faire la route qui donne la lettre complette
+    - Check du nombre de credit
+    - Inscription / Connexion
+    - Paiement
+    - Post/Get bdd des lettres de motivation
+- Implementer la landing page HTML/CSS
+    - Prendre un template
+- Marketing
+    - Faire de la pub Facebook
+    - SEO
