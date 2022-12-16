@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { OpenaiService } from './openai.service';
 
 @Controller('/motivbot')
@@ -12,9 +12,7 @@ export class OpenaiController {
     }
 
     @Get('/complete')
-    getLettreMotivationComplete(): string {
-        // TODO verifier personne connecté
-        // TODO verifier le nombre de credit
-        return this.openAiService.getLettreMotivationComplete();
+    async getLettreMotivationComplete(@Param('id') id: number): Promise<string> {
+        return await this.openAiService.getLettreMotivationComplete(id);
     }
 }

@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { OpenaiController } from './openai/openai.controller';
 import { UsersModule } from './users/users.module';
-import { OpenaiService } from './openai/openai.service';
+import { DatabaseModule } from './database/database.module';
+import { OpenaiModule } from './openai/openai.module';
 
 @Module({
-  imports: [UsersModule],
-  controllers: [AppController, OpenaiController],
-  providers: [AppService, OpenaiService],
+  imports: [UsersModule, DatabaseModule, OpenaiModule],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
