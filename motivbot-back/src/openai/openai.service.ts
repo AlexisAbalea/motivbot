@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Lettre } from 'src/entities/lettre.entity';
+import { User } from 'src/entities/user.entity';
 import { UsersService } from 'src/users/users.service';
 import { Repository } from 'typeorm';
 
@@ -16,7 +17,7 @@ export class OpenaiService {
         return 'Madame, Monsieur, je vous presente ma lettre de motivation ...';
     }
 
-    async getLettreMotivationComplete(idUser: number): Promise<string>  {
+    async getLettreMotivationComplete(idUser: number): Promise<string>  {        
         const user = await this.userService.findOne(idUser);
         
         if (!user) {
@@ -31,10 +32,8 @@ export class OpenaiService {
         } catch (error) {
             throw Error('Erreur API' + error);
         }
-        const lettre: Lettre = new Lettre();
-        lettre.contenu = resultat;
-        lettre.user = user;
-        this.lettreRepository.save(lettre);
+        this.saveLettre(resultat, user);
+        this.debiteUser(user);
         return resultat;
     }
 
@@ -42,5 +41,17 @@ export class OpenaiService {
         return `Madame, Monsieur, 
         je vous presente ma lettre de motivation qui me permettera de devenir quelqu'un de trop fort 
         car j'aime la vie et les oiseaux et les bébés qui pleurent. Cordialement`;
+    }
+
+    private saveLettre(resultat: string, user: User) {
+        const lettre: Lettre = new Lettre();
+        lettre.contenu = resultat;
+        lettre.user = user;
+        this.lettreRepository.save(lettre);
+    }
+
+    private debiteUser(user: User) {
+        user.credit = user.credit - 1;
+        this.userService.update(user.idUser, user);
     }
 }

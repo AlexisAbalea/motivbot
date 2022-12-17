@@ -11,8 +11,9 @@ export class OpenaiController {
         return this.openAiService.getLettreMotivationFree();
     }
 
-    @Get('/complete')
-    async getLettreMotivationComplete(@Param('id') id: number): Promise<string> {
-        return await this.openAiService.getLettreMotivationComplete(id);
+    @Get('/complete/:id')
+    async getLettreMotivationComplete(@Param('id') id: string): Promise<string> {
+        console.log(id);
+        return await this.openAiService.getLettreMotivationComplete(+id);
     }
 }
